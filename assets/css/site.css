@@ -511,6 +511,10 @@ body.menu-locked { overflow: hidden; }
 .poem .case-title { font-size: clamp(26px, 2.8vw, 40px); }
 .poem-line { font-size: clamp(19px, 1.7vw, 23px); font-weight: 500; line-height: 1.4; color: var(--fg); }
 .poem-text { color: var(--muted); font-size: 17px; text-wrap: pretty; }
+.poem-body .btns { margin-top: 6px; }
+/* Вертикальный ролик: на компьютере текст слева, кадр справа */
+.poem-tall { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (min-width: 860px) { .poem-tall .poem-body { order: -1; } }
 @media (max-width: 859px) { .poem { grid-template-columns: minmax(0, 1fr); } }
 .work-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(32px, 5vw, 80px); }
 .work-text { gap: 18px; color: var(--muted); font-size: 17px; text-wrap: pretty; }

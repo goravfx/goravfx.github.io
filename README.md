@@ -33,8 +33,9 @@ AI-режиссёр · Generative Filmmaker · VFX Artist.
 | `bt-film.mp4`, `bt-preview.mp4`, `bt-breakdown.mp4` | Balkan Trafik: фильм, беззвучное превью и breakdown |
 | `spark.mp4`, `spark-preview.mp4` | SPARK |
 | `zinoviev.mp4`, `zinoviev-preview.mp4` | Фильм на стихи Николая Зиновьева (под SPARK) |
+| `mars.mp4`, `mars-preview.mp4` | «На Марсе» (под SPARK) |
 | `shrek.mp4`, `shrek-preview.mp4` | «Пусть говорят» × Shrek |
-| `mandalupa.mp4`, `shmyzdya.mp4`, `jorun-preview.mp4` | Клипы Жоруна и превью в оранжевом блоке |
+| `mandalupa.mp4`, `shmyzdya.mp4`, `vaflianochka.mp4`, `jorun-preview.mp4` | Клипы Жоруна и превью в оранжевом блоке |
 | остальные | Фрагменты и короткие ролики из списка просмотров |
 
 Файлы с `-preview` играют без звука, пока блок на экране. По клику открывается ролик со звуком во встроенном плеере.
