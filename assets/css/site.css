@@ -499,6 +499,19 @@ body.menu-locked { overflow: hidden; }
 /* SPARK */
 .spark { gap: 40px; }
 .spark-text { max-width: 760px; color: var(--muted); font-size: 18px; text-wrap: pretty; }
+
+/* Фильм на стихи: кадр и текст рядом, на телефоне — друг под другом */
+.poem {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px); align-items: center;
+  padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line);
+}
+.frame-poem { width: 100%; aspect-ratio: 16 / 9; border-radius: 4px; }
+.poem-body { display: flex; flex-direction: column; gap: 18px; }
+.poem .case-title { font-size: clamp(26px, 2.8vw, 40px); }
+.poem-line { font-size: clamp(19px, 1.7vw, 23px); font-weight: 500; line-height: 1.4; color: var(--fg); }
+.poem-text { color: var(--muted); font-size: 17px; text-wrap: pretty; }
+@media (max-width: 859px) { .poem { grid-template-columns: minmax(0, 1fr); } }
 .work-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(32px, 5vw, 80px); }
 .work-text { gap: 18px; color: var(--muted); font-size: 17px; text-wrap: pretty; }
 .work-text .first { color: var(--fg); font-size: 20px; line-height: 1.45; }

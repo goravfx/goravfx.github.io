@@ -32,6 +32,7 @@ AI-режиссёр · Generative Filmmaker · VFX Artist.
 | `reel-2021.mp4`, `reel-fx.mp4` | Рилы целиком, со звуком |
 | `bt-film.mp4`, `bt-preview.mp4`, `bt-breakdown.mp4` | Balkan Trafik: фильм, беззвучное превью и breakdown |
 | `spark.mp4`, `spark-preview.mp4` | SPARK |
+| `zinoviev.mp4`, `zinoviev-preview.mp4` | Фильм на стихи Николая Зиновьева (под SPARK) |
 | `shrek.mp4`, `shrek-preview.mp4` | «Пусть говорят» × Shrek |
 | `mandalupa.mp4`, `shmyzdya.mp4`, `jorun-preview.mp4` | Клипы Жоруна и превью в оранжевом блоке |
 | остальные | Фрагменты и короткие ролики из списка просмотров |
