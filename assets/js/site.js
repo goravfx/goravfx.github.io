@@ -1,9 +1,17 @@
-/* Гиоргий Мачарашвили — скрипты сайта: шапка, мобильное меню, таймкод и фоновое видео */
+/* Гиоргий Мачарашвили — скрипты сайта: шапка, мобильное меню, таймкод, видео и плеер */
 (function () {
   'use strict';
 
   var root = document.documentElement;
   var header = document.querySelector('.site-header');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var hasIO = 'IntersectionObserver' in window;
+
+  function playQuietly(video) {
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { /* автозапуск запрещён — остаётся постер */ });
+  }
 
   /* Высота шапки — чтобы якорные ссылки не прятали заголовки под ней */
   function setHeaderHeight() {
@@ -28,7 +36,6 @@
       document.body.classList.toggle('menu-locked', open);
     };
     var isOpen = function () { return header.classList.contains('menu-open'); };
-
     menuBtn.addEventListener('click', function () {
       setOpen(!isOpen());
       if (isOpen()) {
@@ -68,7 +75,7 @@
       raf = tcVisible ? requestAnimationFrame(tick) : 0;
     };
     raf = requestAnimationFrame(tick);
-    if ('IntersectionObserver' in window) {
+    if (hasIO) {
       new IntersectionObserver(function (entries) {
         tcVisible = entries[0].isIntersecting;
         if (tcVisible && !raf) raf = requestAnimationFrame(tick);
@@ -76,63 +83,101 @@
     }
   }
 
-  /* Фоновое видео Vimeo: грузится после страницы и проявляется, только когда реально заиграло.
-     Если Vimeo недоступен — остаётся постер. */
-  var media = document.querySelector('[data-vimeo]');
-  if (media) {
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var saveData = navigator.connection && navigator.connection.saveData;
-    if (!reduceMotion && !saveData) {
-      var VIMEO = 'https://player.vimeo.com';
-      var startVideo = function () {
-        var iframe = document.createElement('iframe');
-        var playing = false;
-        var subscribed = false;
-        var send = function (method, value) {
-          var msg = { method: method };
-          if (value !== undefined) msg.value = value;
-          try { iframe.contentWindow.postMessage(msg, VIMEO); } catch (err) { /* плеер ещё не готов */ }
-        };
-        var subscribe = function () {
-          if (subscribed) return;
-          subscribed = true;
-          send('addEventListener', 'play');
-          send('addEventListener', 'timeupdate');
-          send('addEventListener', 'playProgress');
-        };
-        window.addEventListener('message', function (e) {
-          if (e.origin !== VIMEO || e.source !== iframe.contentWindow) return;
-          var d = e.data;
-          if (typeof d === 'string') { try { d = JSON.parse(d); } catch (err) { return; } }
-          if (!d) return;
-          if (d.event === 'ready' || d.method === 'ping') {
-            subscribe();
-          } else if (!playing && (d.event === 'play' || d.event === 'timeupdate' || d.event === 'playProgress')) {
-            playing = true;
-            iframe.classList.add('is-playing');
-          }
-        });
-        iframe.className = 'hero-video';
-        iframe.title = media.getAttribute('data-title') || '';
-        iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-        iframe.setAttribute('tabindex', '-1');
-        iframe.setAttribute('aria-hidden', 'true');
-        iframe.addEventListener('load', function () { send('ping'); });
-        iframe.src = media.getAttribute('data-vimeo');
-        media.appendChild(iframe);
-
-        /* Ставим видео на паузу, когда первый экран прокручен */
-        if ('IntersectionObserver' in window) {
-          new IntersectionObserver(function (entries) {
-            if (subscribed) send(entries[0].isIntersecting ? 'play' : 'pause');
-          }).observe(media);
-        }
-      };
-      if (document.readyState === 'complete') {
-        setTimeout(startVideo, 200);
-      } else {
-        window.addEventListener('load', function () { setTimeout(startVideo, 200); });
+  /* Фоновое видео первого экрана: горизонтальная или вертикальная версия под экран */
+  var hero = document.querySelector('.hero-video');
+  if (hero && !reduceMotion && !saveData) {
+    var tallMq = window.matchMedia('(max-aspect-ratio: 1/1)');
+    var heroVisible = true;
+    var pickSource = function () {
+      var src = tallMq.matches ? hero.getAttribute('data-tall') : hero.getAttribute('data-wide');
+      if (hero.getAttribute('src') !== src) {
+        hero.classList.remove('is-playing');
+        hero.setAttribute('src', src);
       }
+      if (heroVisible) playQuietly(hero);
+    };
+    hero.addEventListener('playing', function () { hero.classList.add('is-playing'); });
+    pickSource();
+    if (tallMq.addEventListener) tallMq.addEventListener('change', pickSource); else tallMq.addListener(pickSource);
+    if (hasIO) {
+      new IntersectionObserver(function (entries) {
+        heroVisible = entries[0].isIntersecting;
+        if (heroVisible) playQuietly(hero); else hero.pause();
+      }).observe(hero);
     }
+  }
+
+  /* Беззвучные превью в кейсах: грузятся у края экрана, играют только на экране */
+  var loops = document.querySelectorAll('video.loop[data-src]');
+  if (loops.length && !reduceMotion && !saveData && hasIO) {
+    var loopObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) {
+          if (!v.getAttribute('src')) v.setAttribute('src', v.getAttribute('data-src'));
+          playQuietly(v);
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    Array.prototype.forEach.call(loops, function (v) { loopObserver.observe(v); });
+  }
+
+  /* Плеер: ролики открываются поверх страницы со звуком */
+  var dialog = document.getElementById('player');
+  if (dialog && typeof dialog.showModal === 'function') {
+    var pv = dialog.querySelector('.player-video');
+    var ptitle = dialog.querySelector('.player-title');
+    var pclose = dialog.querySelector('.player-close');
+    var ratio = 16 / 9;
+    var fit = function () {
+      var top = dialog.querySelector('.player-top');
+      var availW = window.innerWidth - 2 * Math.max(12, Math.min(32, window.innerWidth * 0.03));
+      var availH = window.innerHeight - (top ? top.offsetHeight : 40) - 14 - 32;
+      var w = availW;
+      var h = w / ratio;
+      if (h > availH) { h = availH; w = h * ratio; }
+      dialog.style.setProperty('--pw', Math.floor(w) + 'px');
+      dialog.style.setProperty('--ph', Math.floor(h) + 'px');
+    };
+    var pausedLoops = [];
+    var open = function (link) {
+      var w = parseFloat(link.getAttribute('data-w')) || 16;
+      var h = parseFloat(link.getAttribute('data-h')) || 9;
+      ratio = w / h;
+      ptitle.textContent = link.getAttribute('data-title') || '';
+      var poster = link.getAttribute('data-poster');
+      if (poster) pv.setAttribute('poster', poster); else pv.removeAttribute('poster');
+      pv.setAttribute('src', link.getAttribute('href'));
+      fit();
+      pausedLoops = [];
+      Array.prototype.forEach.call(document.querySelectorAll('video.loop, .hero-video'), function (v) {
+        if (!v.paused) { v.pause(); pausedLoops.push(v); }
+      });
+      document.body.classList.add('player-open');
+      dialog.showModal();
+      playQuietly(pv);
+    };
+    var cleanup = function () {
+      pv.pause();
+      pv.removeAttribute('src');
+      pv.load();
+      document.body.classList.remove('player-open');
+      pausedLoops.forEach(function (v) { playQuietly(v); });
+      pausedLoops = [];
+    };
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[data-play]');
+      if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      open(link);
+    });
+    pclose.addEventListener('click', function () { dialog.close(); });
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog || e.target.classList.contains('player-box')) dialog.close();
+    });
+    dialog.addEventListener('close', cleanup);
+    window.addEventListener('resize', function () { if (dialog.open) fit(); });
   }
 })();
