@@ -404,6 +404,11 @@ body.menu-locked { overflow: hidden; }
   padding: 11px 0; border-top: 1px solid var(--line); font-size: 17px;
 }
 .rows.closed > li:last-child { border-bottom: 1px solid var(--line); }
+.rows > li.row-link { padding: 0; }
+.row-link a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; width: 100%; padding: 11px 0; color: var(--fg); }
+.row-link a:hover { color: var(--accent); }
+.row-ext { flex-shrink: 0; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: var(--muted-3); white-space: nowrap; transition: color .2s; }
+.row-link a:hover .row-ext { color: var(--accent); }
 .award { color: var(--accent); font-family: var(--f-mono); font-size: 13px; }
 .rows .more { color: var(--muted-3); font-size: 15px; }
 .col-gap-20 { gap: 20px; }
@@ -579,6 +584,46 @@ a.chart-row:hover .chart-t { color: var(--accent); }
   .chart-row { grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; }
   .chart-play { display: block; margin: 2px 0 0; }
 }
+
+/* Форма «Предложить идею» */
+.idea {
+  width: min(560px, calc(100% - 24px)); max-width: none; max-height: calc(100% - 24px);
+  margin: auto; padding: 0; overflow: auto;
+  border: 1px solid var(--line-2); border-radius: 6px; background: var(--bg-2); color: var(--fg);
+}
+.idea::backdrop { background: rgba(11, 11, 10, .86); }
+.idea-form, .idea-done { display: flex; flex-direction: column; gap: 18px; padding: clamp(20px, 4vw, 36px); }
+.idea-form[hidden], .idea-done[hidden] { display: none; }
+.idea-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.idea-close {
+  flex-shrink: 0; width: 40px; height: 40px; border: 1px solid var(--line-2); border-radius: 999px;
+  background: none; cursor: pointer; transition: border-color .2s, color .2s;
+}
+.idea-close:hover { border-color: var(--accent); color: var(--accent); }
+.idea-title {
+  font-family: var(--f-display); font-weight: 800; font-size: clamp(26px, 4vw, 36px);
+  line-height: 1; letter-spacing: -.03em; text-transform: uppercase;
+}
+.idea-lead { color: var(--muted); font-size: 15px; text-wrap: pretty; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field-label { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-2); }
+.field-opt { text-transform: none; letter-spacing: 0; color: var(--muted-4); }
+.field input, .field textarea {
+  width: 100%; padding: 13px 14px; border: 1px solid var(--line-2); border-radius: 4px;
+  background: var(--ink); color: var(--fg); font: inherit; font-size: 16px; line-height: 1.5;
+  transition: border-color .2s;
+}
+.field textarea { min-height: 140px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: var(--muted-4); }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.idea-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+.idea-send[disabled] { opacity: .6; cursor: progress; }
+.idea-status { flex: 1 1 220px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.idea-status:empty { display: none; }
+.idea-status.is-error { color: var(--accent); }
+.idea-status a { color: var(--fg); text-decoration: underline; }
+body.modal-open { overflow: hidden; }
 
 /* Встроенный плеер */
 .player {

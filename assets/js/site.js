@@ -180,4 +180,81 @@
     dialog.addEventListener('close', cleanup);
     window.addEventListener('resize', function () { if (dialog.open) fit(); });
   }
+
+  /* Форма «Предложить идею»: письмо уходит на почту через FormSubmit.
+     Без поддержки dialog/fetch ссылки остаются обычными (mailto и якорь). */
+  var idea = document.getElementById('idea');
+  if (idea && typeof idea.showModal === 'function' && window.fetch && window.FormData) {
+    var form = idea.querySelector('.idea-form');
+    var done = idea.querySelector('.idea-done');
+    var status = idea.querySelector('.idea-status');
+    var sendBtn = idea.querySelector('.idea-send');
+    var MAIL = 'gora.vfx@gmail.com';
+    var setStatus = function (html, isError) {
+      status.innerHTML = html;
+      status.className = 'idea-status' + (isError ? ' is-error' : '');
+    };
+    var openIdea = function () {
+      form.hidden = false;
+      done.hidden = true;
+      setStatus('', false);
+      document.body.classList.add('modal-open');
+      idea.showModal();
+      if (window.matchMedia('(pointer: fine)').matches) {
+        var area = form.querySelector('textarea');
+        if (area) area.focus();
+      }
+    };
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('[data-idea]');
+      if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      openIdea();
+    });
+    Array.prototype.forEach.call(idea.querySelectorAll('.idea-close, .idea-close-btn'), function (b) {
+      b.addEventListener('click', function () { idea.close(); });
+    });
+    idea.addEventListener('click', function (e) { if (e.target === idea) idea.close(); });
+    idea.addEventListener('close', function () { document.body.classList.remove('modal-open'); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = typeof v === 'string' ? v.trim() : v; });
+      if (data._honey) return; /* скрытое поле заполняют только боты */
+      var contactValue = data['Контакт'] || '';
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue)) data._replyto = contactValue;
+      data._subject = 'Идея с сайта goravfx.github.io';
+      data._template = 'table';
+      data._captcha = 'false';
+      sendBtn.disabled = true;
+      setStatus('Отправляю…', false);
+      fetch(form.getAttribute('data-endpoint'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; });
+      }).then(function (res) {
+        var msg = String(res.j.message || '');
+        if (res.ok && (res.j.success === true || res.j.success === 'true')) {
+          form.reset();
+          form.hidden = true;
+          done.hidden = false;
+          setStatus('', false);
+          var btn = done.querySelector('.idea-close-btn');
+          if (btn) btn.focus();
+        } else if (/activat/i.test(msg)) {
+          setStatus('Форма ещё не активирована: на ' + MAIL + ' пришло письмо от FormSubmit — нажмите в нём «Activate Form». После этого сообщение дойдёт.', false);
+        } else {
+          throw new Error(msg || 'send failed');
+        }
+      }).catch(function () {
+        setStatus('Не получилось отправить. Напишите напрямую: <a href="mailto:' + MAIL + '">' + MAIL + '</a>', true);
+      }).then(function () {
+        sendBtn.disabled = false;
+      });
+    });
+  }
 })();

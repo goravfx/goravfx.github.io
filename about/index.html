@@ -82,7 +82,7 @@
     <div class="chapter-body">
       <p>После школы я хотел поступить на режиссуру кино. Меня не взяли. Потом снова не взяли. А позже — ещё раз.</p>
       <p>Путь прошёл через театральную режиссуру. Театр дал фундамент, который сегодня оказался неожиданно полезным: драматургия, актёр, сцена, конфликт, темп и зритель.</p>
-      <p>Но я понял, что ухожу от причины, по которой вообще захотел заниматься искусством. Так снова появилась анимация: 2D, Cinema 4D, затем 3D и VFX. Мультфильм «Из жизни червей» получил на «Молодом Киновеке» первое место за сценарий и второе за анимацию.</p>
+      <p>Но я понял, что ухожу от причины, по которой вообще захотел заниматься искусством. Так снова появилась анимация: 2D, затем Cinema 4D, 3D и VFX. Мультфильм «Из жизни червей» получил на «Молодом Киновеке» первое место за сценарий и второе за анимацию.</p>
       <p class="chapter-q">Мне хотелось не интерпретировать существующие миры. Мне хотелось создавать собственные.</p>
     </div>
   </section>
@@ -141,12 +141,48 @@
       <span class="ccard-text">Реклама · Music Video · Film · AI Production · CGI/VFX</span>
       <span class="ccard-cta">Обсудить проект →</span>
     </a>
-    <a class="ccard" href="mailto:gora.vfx@gmail.com">
+    <a class="ccard" href="mailto:gora.vfx@gmail.com" data-idea>
       <span class="ccard-label">COLLABORATION · E-MAIL</span>
       <span class="ccard-text">Музыка · Original IP · Experimental Film · Brand Integration</span>
       <span class="ccard-cta">Предложить идею →</span>
     </a>
   </div>
+  <dialog class="idea" id="idea" aria-labelledby="idea-title">
+    <form class="idea-form" data-endpoint="https://formsubmit.co/ajax/gora.vfx@gmail.com" method="post">
+      <div class="idea-top">
+        <p class="eyebrow">Collaboration · письмо на почту</p>
+        <button class="idea-close" type="button" aria-label="Закрыть форму">✕</button>
+      </div>
+      <h2 class="idea-title" id="idea-title">Предложить идею</h2>
+      <p class="idea-lead">Музыка, original IP, экспериментальное кино, интеграция бренда — или то, чему пока нет названия.</p>
+      <label class="field">
+        <span class="field-label">Идея</span>
+        <textarea name="Идея" rows="6" maxlength="5000" required placeholder="Что хотите сделать и зачем"></textarea>
+      </label>
+      <label class="field">
+        <span class="field-label">Как с вами связаться</span>
+        <input name="Контакт" type="text" maxlength="200" required autocomplete="email" placeholder="E-mail, Telegram или телефон">
+      </label>
+      <label class="field">
+        <span class="field-label">Имя <span class="field-opt">— если хотите</span></span>
+        <input name="Имя" type="text" maxlength="120" autocomplete="name">
+      </label>
+      <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="idea-actions">
+        <button class="btn btn-accent idea-send" type="submit">Отправить →</button>
+        <p class="idea-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+    <div class="idea-done" hidden>
+      <div class="idea-top">
+        <p class="eyebrow"><span class="acc">Отправлено</span></p>
+        <button class="idea-close" type="button" aria-label="Закрыть">✕</button>
+      </div>
+      <h2 class="idea-title">Спасибо!</h2>
+      <p class="idea-lead">Письмо ушло мне на почту. Отвечу на контакт, который вы оставили.</p>
+      <div><button class="btn btn-line idea-close-btn" type="button">Закрыть</button></div>
+    </div>
+  </dialog>
   <footer class="site-footer">
     <div class="stack footer-id">
       <span class="footer-name">Гиоргий Мачарашвили</span>
