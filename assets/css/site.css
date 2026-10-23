@@ -410,6 +410,47 @@ body.menu-locked { overflow: hidden; }
 .row-ext { flex-shrink: 0; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; color: var(--muted-3); white-space: nowrap; transition: color .2s; }
 .row-link a:hover .row-ext { color: var(--accent); }
 .award { color: var(--accent); font-family: var(--f-mono); font-size: 13px; }
+
+/* Фильмография: постеры, по клику — трейлер */
+.posters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 14px; }
+@media (min-width: 480px) { .posters { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 18px; } }
+@media (min-width: 960px) { .posters { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+/* Клипы и трейлеры: те же карточки, но кадр 16:9 */
+.clips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 14px; }
+@media (min-width: 480px) { .clips { gap: 32px 18px; } }
+@media (min-width: 960px) { .clips { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.poster-img.wide { aspect-ratio: 16 / 9; }
+.poster { display: flex; flex-direction: column; gap: 10px; color: var(--fg); }
+.poster-img {
+  position: relative; display: block; aspect-ratio: 2 / 3; overflow: hidden;
+  border-radius: 4px; background: var(--bg-2); outline: 1px solid var(--line);
+}
+.poster-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2, .7, .2, 1), filter .3s; }
+.poster-img::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(11,11,10,0) 55%, rgba(11,11,10,.7) 100%); opacity: 0; transition: opacity .3s;
+}
+.poster-star {
+  position: absolute; top: 8px; right: 8px; z-index: 1;
+  display: grid; place-items: center; width: 28px; height: 28px; border-radius: 999px;
+  background: var(--accent); color: var(--ink); font-size: 14px; line-height: 1;
+}
+.poster-play {
+  position: absolute; left: 10px; bottom: 10px; z-index: 1;
+  padding: 7px 12px; border-radius: 999px; background: var(--accent); color: var(--ink);
+  font-size: 13px; font-weight: 600; line-height: 1.2; white-space: nowrap;
+  opacity: 0; transform: translateY(6px); transition: opacity .25s, transform .25s;
+}
+.poster:hover .poster-img img, .poster:focus-visible .poster-img img { transform: scale(1.04); }
+.poster:hover .poster-img::after, .poster:focus-visible .poster-img::after,
+.poster:hover .poster-play, .poster:focus-visible .poster-play { opacity: 1; transform: none; }
+.poster:hover { color: var(--fg); }
+.poster:hover .poster-t { color: var(--accent); }
+.poster-t { font-size: 15px; font-weight: 500; line-height: 1.35; transition: color .2s; }
+.poster-meta { margin-top: -4px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; color: var(--muted-3); }
+@media (hover: none) { .poster-play { opacity: 1; transform: none; padding: 5px 9px; font-size: 12px; } }
+@media (prefers-reduced-motion: reduce) { .poster-img img, .poster-play { transition: none; } }
+.films-more { color: var(--muted-3); font-size: 15px; }
 .rows .more { color: var(--muted-3); font-size: 15px; }
 .col-gap-20 { gap: 20px; }
 .col-gap-16 { gap: 16px; }

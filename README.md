@@ -20,6 +20,8 @@ AI-режиссёр · Generative Filmmaker · VFX Artist.
 | `assets/js/site.js` | Мобильное меню, таймкод REC, фоновое видео, превью и встроенный плеер |
 | `assets/video/` | Все ролики (mp4, H.264) |
 | `assets/img/` | Картинки и постеры роликов |
+| `assets/img/posters/` | Постеры фильмов в блоке «Кино и сериалы» (400×600, webp) |
+| `assets/img/clips/` | Кадры клипов и трейлеров (640×360, webp) |
 | `assets/fonts/` | Шрифты Unbounded, Onest и IBM Plex Mono (локальные копии Google Fonts) |
 | `assets/og-cover.jpg` | Картинка-превью для Telegram, VK, WhatsApp и соцсетей |
 | `assets/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` | Иконка сайта |
