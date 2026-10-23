@@ -322,6 +322,9 @@ button { font: inherit; color: inherit; }
   /* Узкий ноутбук: у переключателя языка только флаг, иначе меню не помещается */
   .lang-code { display: none; }
   .lang-btn { padding: 8px 11px 8px 10px; }
+  .site-header { column-gap: 16px; }
+  .nav { gap: 22px; }
+  .soc a { width: 30px; }
 }
 @media (max-width: 479px) {
   /* На телефоне кнопка меню — только значок, переключатель языка — только флаг */
