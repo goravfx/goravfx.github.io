@@ -736,31 +736,25 @@ body.player-open { overflow: hidden; }
 }
 .step-d { color: var(--muted-2); font-size: 17px; text-wrap: pretty; }
 
-/* ---------- 08 Цены ---------- */
-.pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: clamp(48px, 6vw, 96px); }
-.pricing-left { gap: 28px; }
-.pricing-title {
-  font-family: var(--f-display); font-weight: 800; font-size: clamp(28px, 3.8vw, 56px);
-  line-height: 1; letter-spacing: -.03em; text-transform: uppercase;
-}
-.strike { text-decoration: line-through; text-decoration-color: var(--accent); text-decoration-thickness: 4px; }
-.prices { gap: 16px; }
+/* ---------- Цены: четыре уровня ---------- */
+.pricing { gap: 40px; }
+.price-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (min-width: 720px) { .price-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .price {
-  display: flex; flex-direction: column; gap: 14px; padding: clamp(24px, 3vw, 40px);
-  border: 1px solid var(--line-2); border-radius: 4px;
+  display: flex; flex-direction: column; gap: 14px; padding: clamp(22px, 2.4vw, 30px);
+  border: 1px solid var(--line-2); border-radius: 4px; background: var(--bg-2);
 }
-.price-main { gap: 18px; background: var(--paper); color: var(--ink); border-color: var(--paper); }
-.price-label { font-family: var(--f-mono); font-size: 12px; letter-spacing: .16em; color: var(--muted-3); }
-.price-main .price-label { color: var(--ink); }
+.price-label { font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2); }
 .price-n {
-  font-family: var(--f-display); font-weight: 800; font-size: clamp(30px, 3.4vw, 46px);
-  line-height: 1; letter-spacing: -.03em;
+  font-family: var(--f-display); font-weight: 800; font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1; letter-spacing: -.03em; color: var(--accent);
 }
-.price-main .price-n { font-size: clamp(36px, 4.4vw, 60px); }
-.price-unit { font-size: 15px; font-weight: 500; }
-.price-d { font-size: 16px; line-height: 1.55; color: var(--muted-2); text-wrap: pretty; }
-.price-main .price-d { color: var(--paper-ink); }
-.price-main ::selection { background: var(--ink); color: var(--paper); }
+.price-d { flex: 1; font-size: 16px; line-height: 1.55; color: var(--fg-2); text-wrap: pretty; }
+.price-t { padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; color: var(--muted-3); }
+.price-foot { display: flex; flex-direction: column; gap: 16px; }
+.price-note { color: var(--muted); font-size: 16px; }
+.price-note a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+.price-note a:hover { color: var(--accent); }
 
 /* ---------- 09 Коллаборации ---------- */
 .collab { gap: 40px; }
