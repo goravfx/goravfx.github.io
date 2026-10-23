@@ -6,12 +6,16 @@
   <title>История — Гиоргий Мачарашвили</title>
   <meta name="description" content="Как я пришёл от кассетной камеры в станице Калужской через театр, кино и Houdini к нейросетям. История Гиоргия Мачарашвили — AI-режиссёра и VFX-художника.">
   <link rel="canonical" href="https://goravfx.github.io/about/">
+  <link rel="alternate" hreflang="ru" href="https://goravfx.github.io/about/">
+  <link rel="alternate" hreflang="en" href="https://goravfx.github.io/en/about/">
+  <link rel="alternate" hreflang="x-default" href="https://goravfx.github.io/en/about/">
   <meta name="theme-color" content="#0b0b0a">
   <meta name="author" content="Гиоргий Мачарашвили">
 
   <meta property="og:type" content="profile">
   <meta property="og:site_name" content="Гиоргий Мачарашвили">
   <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:title" content="История — Гиоргий Мачарашвили">
   <meta property="og:description" content="Как я пришёл от кассетной камеры в станице Калужской через театр, кино и Houdini к нейросетям. История Гиоргия Мачарашвили — AI-режиссёра и VFX-художника.">
   <meta property="og:url" content="https://goravfx.github.io/about/">
@@ -28,9 +32,9 @@
 
   <link rel="preload" href="../assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/css/site.css?v=591f9ee5">
+  <link rel="stylesheet" href="../assets/css/site.css?v=4c3c7f7d">
   <script>document.documentElement.classList.add('js')</script>
-  <script src="../assets/js/site.js?v=53c03393" defer></script>
+  <script src="../assets/js/site.js?v=69127d33" defer></script>
 </head>
 
 <body>
@@ -42,9 +46,6 @@
     <span class="brand-dot" aria-hidden="true"></span>
     <span>Г. МАЧАРАШВИЛИ</span>
   </a>
-  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
-    <span class="menu-label">Меню</span><span class="menu-icon" aria-hidden="true"></span>
-  </button>
   <nav class="nav" id="site-nav" aria-label="Разделы сайта">
     <a href="../#vfx">Кино / VFX</a>
     <a href="../#work">AI-работы</a>
@@ -54,6 +55,16 @@
     <a href="./" aria-current="page">Обо мне</a>
     <a class="nav-cta" href="#contact">Обсудить проект</a>
   </nav>
+  <details class="lang">
+    <summary class="lang-btn" aria-label="Язык сайта: русский"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 20" width="21" height="14" focusable="false"><rect width="30" height="20" fill="#fff"/><rect y="6.667" width="30" height="6.667" fill="#0039a6"/><rect y="13.333" width="30" height="6.667" fill="#d52b1e"/></svg></span><span class="lang-code" aria-hidden="true">RU</span><span class="lang-caret" aria-hidden="true"></span></summary>
+    <ul class="lang-menu">
+      <li><a href="../about/" hreflang="ru" lang="ru" data-lang="ru" aria-current="true"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 20" width="21" height="14" focusable="false"><rect width="30" height="20" fill="#fff"/><rect y="6.667" width="30" height="6.667" fill="#0039a6"/><rect y="13.333" width="30" height="6.667" fill="#d52b1e"/></svg></span><span>Русский</span></a></li>
+      <li><a href="../en/about/" hreflang="en" lang="en" data-lang="en"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 20" width="21" height="14" focusable="false"><rect width="30" height="20" fill="#fff"/><path d="M0 0.000h30v1.538H0zM0 3.077h30v1.538H0zM0 6.154h30v1.538H0zM0 9.231h30v1.538H0zM0 12.308h30v1.538H0zM0 15.385h30v1.538H0zM0 18.462h30v1.538H0z" fill="#b22234"/><rect width="12" height="10.769" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.2" cy="1.20" r=".55"/><circle cx="6.0" cy="1.20" r=".55"/><circle cx="10.8" cy="1.20" r=".55"/><circle cx="3.6" cy="3.30" r=".55"/><circle cx="8.4" cy="3.30" r=".55"/><circle cx="1.2" cy="5.40" r=".55"/><circle cx="6.0" cy="5.40" r=".55"/><circle cx="10.8" cy="5.40" r=".55"/><circle cx="3.6" cy="7.50" r=".55"/><circle cx="8.4" cy="7.50" r=".55"/><circle cx="1.2" cy="9.60" r=".55"/><circle cx="6.0" cy="9.60" r=".55"/><circle cx="10.8" cy="9.60" r=".55"/></g></svg></span><span>English</span></a></li>
+    </ul>
+  </details>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Меню">
+    <span class="menu-label" aria-hidden="true">Меню</span><span class="menu-icon" aria-hidden="true"></span>
+  </button>
 </header>
 
 <main id="main">
@@ -198,6 +209,13 @@
     </nav>
   </footer>
 </section>
+
+
+<div class="lang-hint" data-lang-hint="en" lang="en" hidden>
+  <p class="lang-hint-t">This site is also available in English.</p>
+  <a class="lang-hint-go" href="../en/about/" hreflang="en" data-lang="en"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 20" width="21" height="14" focusable="false"><rect width="30" height="20" fill="#fff"/><path d="M0 0.000h30v1.538H0zM0 3.077h30v1.538H0zM0 6.154h30v1.538H0zM0 9.231h30v1.538H0zM0 12.308h30v1.538H0zM0 15.385h30v1.538H0zM0 18.462h30v1.538H0z" fill="#b22234"/><rect width="12" height="10.769" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.2" cy="1.20" r=".55"/><circle cx="6.0" cy="1.20" r=".55"/><circle cx="10.8" cy="1.20" r=".55"/><circle cx="3.6" cy="3.30" r=".55"/><circle cx="8.4" cy="3.30" r=".55"/><circle cx="1.2" cy="5.40" r=".55"/><circle cx="6.0" cy="5.40" r=".55"/><circle cx="10.8" cy="5.40" r=".55"/><circle cx="3.6" cy="7.50" r=".55"/><circle cx="8.4" cy="7.50" r=".55"/><circle cx="1.2" cy="9.60" r=".55"/><circle cx="6.0" cy="9.60" r=".55"/><circle cx="10.8" cy="9.60" r=".55"/></g></svg></span><span>Switch to English</span></a>
+  <button class="lang-hint-x" type="button" aria-label="Close">✕</button>
+</div>
 
 </body>
 </html>
