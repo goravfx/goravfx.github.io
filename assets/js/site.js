@@ -127,7 +127,7 @@
     header.addEventListener('focusout', function (e) {
       if (isOpen() && e.relatedTarget && !header.contains(e.relatedTarget)) setOpen(false);
     });
-    var mq = window.matchMedia('(max-width: 1099px)');
+    var mq = window.matchMedia('(max-width: 1279px)');
     var onMq = function () { if (!mq.matches) setOpen(false); };
     if (mq.addEventListener) mq.addEventListener('change', onMq); else mq.addListener(onMq);
   }

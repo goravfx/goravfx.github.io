@@ -250,8 +250,8 @@ button { font: inherit; color: inherit; }
 .nav .nav-cta:hover { background: var(--accent); color: var(--ink); }
 .menu-btn { display: none; }
 
-/* Мобильное меню (до 1100 px: на узких ноутбуках полное меню и переключатель языка не помещаются в строку) */
-@media (max-width: 1099px) {
+/* Мобильное меню (до 1280 px: на узких ноутбуках полное меню, значки соцсетей и язык не помещаются в строку) */
+@media (max-width: 1279px) {
   .js .menu-btn {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 9px 16px; border: 1px solid var(--line-2); border-radius: 999px;
@@ -302,11 +302,23 @@ button { font: inherit; color: inherit; }
   html:not(.js) .nav { order: 2; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
   html:not(.js) .nav::-webkit-scrollbar { display: none; }
 
-  /* Язык — справа, рядом с кнопкой меню */
+  /* Значки соцсетей и язык — справа, рядом с кнопкой меню */
   .site-header { column-gap: 10px; }
-  .lang { margin-left: auto; }
+  .soc-bar { margin-left: auto; }
 }
-@media (min-width: 1100px) and (max-width: 1279px) {
+@media (max-width: 639px) {
+  /* На телефоне значки соцсетей — внутри меню, в шапке остаются язык и кнопка меню */
+  .site-header .soc-bar { display: none; }
+  .lang { margin-left: auto; }
+  .js .nav .soc-nav { display: flex; justify-content: center; gap: 12px; margin-top: 28px; }
+  .js .nav .soc-nav a {
+    width: 52px; height: 52px; padding: 0;
+    border: 1px solid var(--line-2); border-radius: 50%; color: var(--fg);
+  }
+  .js .nav .soc-nav a:hover { color: var(--accent); border-color: var(--accent); background: none; }
+  .js .nav .soc-nav svg { width: 22px; height: 22px; }
+}
+@media (min-width: 1280px) and (max-width: 1439px) {
   /* Узкий ноутбук: у переключателя языка только флаг, иначе меню не помещается */
   .lang-code { display: none; }
   .lang-btn { padding: 8px 11px 8px 10px; }
@@ -323,6 +335,16 @@ button { font: inherit; color: inherit; }
   .lang-btn { gap: 7px; padding: 7px 9px 7px 8px; }
 }
 body.menu-locked { overflow: hidden; }
+
+/* ---------- Значки соцсетей в шапке ---------- */
+.soc { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+.soc a {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border-radius: 50%; color: var(--muted); transition: color .2s, background-color .2s;
+}
+.soc a:hover { color: var(--fg); background: var(--line); }
+.soc svg { display: block; width: 17px; height: 17px; fill: currentColor; }
+.nav .soc-nav { display: none; }
 
 /* ---------- Переключатель языка ---------- */
 .lang { position: relative; flex-shrink: 0; }
